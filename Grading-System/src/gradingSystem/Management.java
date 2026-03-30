@@ -3,6 +3,7 @@ package gradingSystem;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Management {
     ArrayList<Student> students = new ArrayList<>();
@@ -19,28 +20,26 @@ public class Management {
                 .forEach(System.out::println);
     }
 
-    public void averageGrade(){
-        double average = scores.stream()
+    public double averageGrade(){
+        return scores.stream()
                 .mapToDouble(Double::doubleValue)
                 .average()
                 .orElse(0);
-
-        System.out.println(average);
     }
 
-    public void topStudent(){
-        Optional<Student> topStudent = this.students.stream()
-                .max(Comparator.comparingDouble(Student::getScore));
-
-        topStudent.ifPresent(System.out::println);
-
+    public Student topStudent(){
+        return this.students.stream()
+                .max(Comparator.comparingDouble(Student::getScore))
+                .orElse(new Student("default", 0));
     }
 
-    public void passedStudents(){
-        this.students.stream()
+    public ArrayList<Student> passedStudents(){
+        return this.students.stream()
                 .filter(student -> student.getScore() >= 50)
-                .forEach(System.out::println);
+                .collect(Collectors.toCollection(ArrayList::new));
     }
+
+
 
 
 

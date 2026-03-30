@@ -10,10 +10,10 @@ public class Main {
 
         management.listAllStudents();
 
-        management.topStudent();
+        System.out.println(management.topStudent());
 
-        management.averageGrade();
+        System.out.println(management.averageGrade());
 
-        management.passedStudents();
+        management.passedStudents().forEach(System.out::println);
     }
 }
