@@ -17,7 +17,7 @@ public class Management {
     public void listAllStudents(){
         this.students.stream()
                 .sorted(Comparator.comparingDouble(Student::getScore).reversed())
-                .forEach(System.out::println);
+                .forEach(student -> System.out.println(student + " -> "+ assignGrade(student)));
     }
 
     public double averageGrade(){
@@ -39,7 +39,14 @@ public class Management {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-
+    public Grades assignGrade(Student student){
+        double marks = student.getScore();
+        if (marks >= 90) return Grades.A;
+        else if (marks >= 80) return Grades.B;
+        else if (marks >= 70) return Grades.C;
+        else if (marks >= 50) return Grades.D;
+        else return Grades.FAIL;
+    }
 
 
 
