@@ -2,17 +2,22 @@ package gradingSystem;
 
 public class Student {
     private String name;
-    private double grade;
+    private double score;
 
-    public Student(String name, double grade){
+    public Student(String name, double scores){
         this.name = name;
-        this.grade = grade;
+        this.score = scores;
     }
 
     public String getName(){
         return this.name;
     }
-    public double getGrade(){
-        return this.grade;
+    public double getScore(){
+        return this.score;
+    }
+
+    @Override
+    public String toString(){
+        return this.name + " : " + this.score;
     }
 }
