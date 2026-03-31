@@ -1,9 +1,6 @@
 package gradingSystem;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Management {
@@ -15,22 +12,24 @@ public class Management {
     }
 
     public void listAllStudents(){
-        this.students.stream()
-                .sorted(Comparator.comparingDouble(Student::getScore).reversed())
-                .forEach(student -> System.out.println(student + " -> "+ student.assignGrade()));
+        if(this.students.isEmpty()){
+            System.out.println("No students are enrolled yet.");
+        }else{
+            this.students.stream()
+                    .sorted(Comparator.comparingDouble(Student::getScore).reversed())
+                    .forEach(student -> System.out.println(student + " -> "+ student.assignGrade()));
+        }
     }
 
-    public double averageScore(){
+    public OptionalDouble averageScore(){
         return this.students.stream()
                 .mapToDouble(Student::getScore)
-                .average()
-                .orElse(0);
+                .average();
     }
 
-    public Student topStudent(){
+    public Optional<Student> topStudent(){
         return this.students.stream()
-                .max(Comparator.comparingDouble(Student::getScore))
-                .orElse(new Student("default", 0));
+                .max(Comparator.comparingDouble(Student::getScore));
     }
 
     public List<Student> passedStudents(){
@@ -38,9 +37,5 @@ public class Management {
                 .filter(student -> student.getScore() >= 50)
                 .toList();
     }
-
-
-
-
 
 }

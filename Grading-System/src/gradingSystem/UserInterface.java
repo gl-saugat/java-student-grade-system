@@ -1,5 +1,8 @@
 package gradingSystem;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -14,10 +17,6 @@ public class UserInterface {
         while(true){
             printMenu();
             int input = getMenuOption();
-            if(input == 6){
-                break;
-            }
-
             switch (input){
                 case 1:
                     String name = getName();
@@ -28,13 +27,30 @@ public class UserInterface {
                     logic.listAllStudents();
                     break;
                 case 3:
-                    System.out.printf("Average score is: %.2f.\n", logic.averageScore());
+                    OptionalDouble average = logic.averageScore();
+                    if(average.isPresent()){
+                        System.out.printf("Average score is: %.2f.\n", average.getAsDouble());
+                    }else{
+                        System.out.println("No students available.");
+                    }
                     break;
                 case 4:
-                    System.out.println("Top Student of the class is "+ logic.topStudent());
+                    Optional<Student> top = logic.topStudent();
+                    top.ifPresentOrElse(
+                            System.out::println,
+                            () -> System.out.println("No students to compare.")
+                    );
                     break;
                 case 5:
-                    logic.passedStudents().forEach(System.out::println);
+                    List<Student> passed = logic.passedStudents();
+                    if(passed.isEmpty()){
+                        System.out.println("No passed marks yet!.");
+                    }else{
+                        passed.forEach(System.out::println);
+                    }
+
+                case 6:
+                    return;
             }
 
         }
