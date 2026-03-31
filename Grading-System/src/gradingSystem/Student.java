@@ -16,6 +16,16 @@ public class Student {
         return this.score;
     }
 
+    public Grades assignGrade(){
+        double marks = this.getScore();
+        if (marks >= 90) return Grades.A;
+        else if (marks >= 80) return Grades.B;
+        else if (marks >= 70) return Grades.C;
+        else if (marks >= 50) return Grades.D;
+        else return Grades.FAIL;
+    }
+
+
     @Override
     public String toString(){
         return this.name + " : " + this.score;

@@ -11,8 +11,7 @@ public class UserInterface {
     }
 
     public void start(){
-        boolean run = true;
-        while(run){
+        while(true){
             printMenu();
             int input = getMenuOption();
             if(input == 6){
