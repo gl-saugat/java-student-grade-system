@@ -20,7 +20,7 @@ public class Management {
                 .forEach(student -> System.out.println(student + " -> "+ assignGrade(student)));
     }
 
-    public double averageGrade(){
+    public double averageScore(){
         return scores.stream()
                 .mapToDouble(Double::doubleValue)
                 .average()
